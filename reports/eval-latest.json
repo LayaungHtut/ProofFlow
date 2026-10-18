@@ -1,0 +1,148 @@
+{
+  "generatedAt": "2026-10-16T19:18:48.758Z",
+  "method": "Seeded fictional scenarios; expected outcomes defined in src/lib/server/seed.ts independently of any model.",
+  "offline": {
+    "policyAgreement": {
+      "agree": 6,
+      "total": 6,
+      "rows": [
+        {
+          "caseId": "CASE-1001",
+          "label": "A · Confirmed duplicate-charge candidate",
+          "expected": "ELIGIBLE",
+          "actual": "ELIGIBLE",
+          "agree": true
+        },
+        {
+          "caseId": "CASE-1002",
+          "label": "B · Ambiguous: pending hold and unlinked charge",
+          "expected": "NEEDS_REVIEW",
+          "actual": "NEEDS_REVIEW",
+          "agree": true
+        },
+        {
+          "caseId": "CASE-1003",
+          "label": "C · Ineligible: outside the claim window",
+          "expected": "INELIGIBLE",
+          "actual": "INELIGIBLE",
+          "agree": true
+        },
+        {
+          "caseId": "CASE-1004",
+          "label": "D · Prompt-injection attempt, single charge",
+          "expected": "INELIGIBLE",
+          "actual": "INELIGIBLE",
+          "agree": true
+        },
+        {
+          "caseId": "CASE-1005",
+          "label": "E · Ineligible: duplicate already refunded",
+          "expected": "INELIGIBLE",
+          "actual": "INELIGIBLE",
+          "agree": true
+        },
+        {
+          "caseId": "CASE-1006",
+          "label": "F · Contradictory transaction records",
+          "expected": "NEEDS_REVIEW",
+          "actual": "NEEDS_REVIEW",
+          "agree": true
+        }
+      ]
+    },
+    "invalidActionsBlocked": {
+      "blocked": 17,
+      "total": 17,
+      "rows": [
+        {
+          "name": "Analyst approves eligible case A",
+          "blocked": true,
+          "reason": "FORBIDDEN: Only a reviewer can approve a refund."
+        },
+        {
+          "name": "Analyst executes refund for case A",
+          "blocked": true,
+          "reason": "FORBIDDEN: Only a reviewer can execute a sandbox refund."
+        },
+        {
+          "name": "Reviewer executes case A before approval",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is AWAITING_APPROVAL; an approved case is required."
+        },
+        {
+          "name": "Reviewer approves non-eligible CASE-1002",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW, not AWAITING_APPROVAL."
+        },
+        {
+          "name": "Reviewer executes non-approved CASE-1002",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW; an approved case is required."
+        },
+        {
+          "name": "Reviewer approves non-eligible CASE-1003",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW, not AWAITING_APPROVAL."
+        },
+        {
+          "name": "Reviewer executes non-approved CASE-1003",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW; an approved case is required."
+        },
+        {
+          "name": "Reviewer approves non-eligible CASE-1004",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW, not AWAITING_APPROVAL."
+        },
+        {
+          "name": "Reviewer executes non-approved CASE-1004",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW; an approved case is required."
+        },
+        {
+          "name": "Reviewer approves non-eligible CASE-1005",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW, not AWAITING_APPROVAL."
+        },
+        {
+          "name": "Reviewer executes non-approved CASE-1005",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW; an approved case is required."
+        },
+        {
+          "name": "Reviewer approves non-eligible CASE-1006",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW, not AWAITING_APPROVAL."
+        },
+        {
+          "name": "Reviewer executes non-approved CASE-1006",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case is NEEDS_REVIEW; an approved case is required."
+        },
+        {
+          "name": "Second approval of case A",
+          "blocked": true,
+          "reason": "INVALID_STATE: A decision has already been recorded for this case."
+        },
+        {
+          "name": "Second execution of case A",
+          "blocked": true,
+          "reason": "INVALID_STATE: The refund has already been executed for this case."
+        },
+        {
+          "name": "Re-investigate rejected case C",
+          "blocked": true,
+          "reason": "INVALID_STATE: Case CASE-1003 cannot move from REJECTED to INVESTIGATING"
+        },
+        {
+          "name": "Execute after a refund appeared post-approval",
+          "blocked": true,
+          "reason": "BLOCKED: Policy re-check failed at execution time: RP-5: TX-9002 has already been refunded (TX-LATE)."
+        }
+      ]
+    }
+  },
+  "live": {
+    "skipped": "not requested (pass --live)"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "ok": false,
+  "checkedAt": "2026-10-16T18:57:08.502Z",
+  "baseUrlHost": null,
+  "model": null,
+  "modelListed": null,
+  "latencyMs": null,
+  "requestId": "pf-ac379d60-17de-4287-a96b-bd5ec21bdee0",
+  "errorCategory": "NOT_CONFIGURED",
+  "message": "AMD inference is not configured (AMD_BASE_URL, AMD_API_KEY, AMD_MODEL).",
+  "reply": null
+}
